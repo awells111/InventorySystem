@@ -42,10 +42,13 @@ public class Inventory {
 
     public void updateProduct(Product oldProduct, Product newProduct) {
         //Replaces the old product with a new one
-        int oldProductIndex = findProductIndex(oldProduct.getProductID());
-        getProducts().set(oldProductIndex, newProduct);
+        updateProduct(oldProduct.getProductID(), newProduct);
     }
 
+    public void updateProduct(int oldProductID, Product newProduct) {
+        //Replaces the old product with a new one
+        getProducts().set(findProductIndex(oldProductID), newProduct);
+    }
 
     private int findPartIndex(int partID) {
         //Returns the index of a part in allParts.
@@ -72,8 +75,12 @@ public class Inventory {
 
     public void updatePart(Part oldPart, Part newPart) {
         //Replaces the old part with a new one
-        int oldPartIndex = findPartIndex(oldPart.getPartID());
-        getAllParts().set(oldPartIndex, newPart);
+        updatePart(oldPart.getPartID(), newPart);
+    }
+
+    public void updatePart(int oldPartID, Part newPart) {
+        //Replaces the old part with a new one
+        getAllParts().set(findPartIndex(oldPartID), newPart);
     }
 
     //Getters and Setters
