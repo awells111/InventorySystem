@@ -1,50 +1,122 @@
 package sample;
 
-import javafx.fxml.Initializable;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+public class Controller {
 
-public class Controller implements Initializable {
+    @FXML
+    private TableView<?> tableviewProduct;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        //todo initialize
+    @FXML
+    private Button buttonExit;
+
+    @FXML
+    private TextField textfieldProduct;
+
+    @FXML
+    private Button buttonPartSearch;
+
+    @FXML
+    private TableColumn<?, ?> columnPartLevel;
+
+    @FXML
+    private Button buttonPartModify;
+
+    @FXML
+    private Button buttonProductDelete;
+
+    @FXML
+    private Button buttonProductAdd;
+
+    @FXML
+    private TableColumn<?, ?> columnPartPrice;
+
+    @FXML
+    private TableColumn<?, ?> columnPartName;
+
+    @FXML
+    private TextField textfieldPart;
+
+    @FXML
+    private TableColumn<?, ?> columnPartID;
+
+    @FXML
+    private TableColumn<?, ?> columnProductLevel;
+
+    @FXML
+    private Button buttonProductModify;
+
+    @FXML
+    private TableView<?> tableviewPart;
+
+    @FXML
+    private Button buttonPartDelete;
+
+    @FXML
+    private TableColumn<?, ?> columnProductPrice;
+
+    @FXML
+    private Button buttonProductSearch;
+
+    @FXML
+    private Button buttonPartAdd;
+
+    @FXML
+    private TableColumn<?, ?> columnProductID;
+
+    @FXML
+    private TableColumn<?, ?> columnProductName;
+
+    @FXML
+    void actionSearchPart(ActionEvent event) {
+
     }
 
-    public void actionSearchPart() {
-        System.out.println("searchPartClicked");
+    @FXML
+    void actionDeletePart(ActionEvent event) {
+
     }
 
-    public void actionDeletePart() {
-        System.out.println("deletePartClicked");
+    @FXML
+    void actionModifyPart(ActionEvent event) {
+
     }
 
-    public void actionModifyPart() {
-        System.out.println("modifyPartClicked");
+    @FXML
+    void actionAddPart(ActionEvent event) {
+
     }
 
-    public void actionAddPart() {
-        System.out.println("addPartClicked");
+    @FXML
+    void actionSearchProduct(ActionEvent event) {
+
     }
 
-    public void actionSearchProduct() {
-        System.out.println("searchProductClicked");
+    @FXML
+    void actionDeleteProduct(ActionEvent event) {
+
     }
 
-    public void actionDeleteProduct() {
-        System.out.println("deleteProductClicked");
+    @FXML
+    void actionModifyProduct(ActionEvent event) {
+
     }
 
-    public void actionModifyProduct() {
-        System.out.println("modifyProductClicked");
+    @FXML
+    void actionAddProduct(ActionEvent event) {
+
     }
 
-    public void actionAddProduct() {
-        System.out.println("addProductClicked");
+    @FXML
+    void actionExit(ActionEvent event) {
+        Platform.exit();
     }
 
-    public void actionExit() {
-        System.out.println("exitClicked");
-    }
 }

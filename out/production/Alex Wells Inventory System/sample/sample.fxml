@@ -30,12 +30,12 @@
                               <TableColumn fx:id="column_part_price" prefWidth="105.0" text="Price/Cost per Unit" />
                           </columns>
                         </TableView>
-                        <Button fx:id="button_part_search" layoutX="110.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#actionSearchPart" text="Search" />
+                        <Button fx:id="button_part_search" layoutX="110.0" layoutY="14.0" mnemonicParsing="false" onAction="#actionSearchPart" text="Search" />
                         <Label layoutX="14.0" layoutY="19.0" text="Parts" />
                         <TextField fx:id="textfield_part" layoutX="194.0" layoutY="14.0" />
-                        <Button fx:id="button_part_delete" layoutX="330.0" layoutY="379.0" mnemonicParsing="false" onMouseClicked="#actionDeletePart" text="Delete" />
-                        <Button fx:id="button_part_modify" layoutX="255.0" layoutY="379.0" mnemonicParsing="false" onMouseClicked="#actionModifyPart" text="Modify" />
-                        <Button fx:id="button_part_add" layoutX="198.0" layoutY="379.0" mnemonicParsing="false" onMouseClicked="#actionAddPart" text="Add" />
+                        <Button fx:id="button_part_delete" layoutX="330.0" layoutY="379.0" mnemonicParsing="false" onAction="#actionDeletePart" text="Delete" />
+                        <Button fx:id="button_part_modify" layoutX="255.0" layoutY="379.0" mnemonicParsing="false" onAction="#actionModifyPart" text="Modify" />
+                        <Button fx:id="button_part_add" layoutX="198.0" layoutY="379.0" mnemonicParsing="false" onAction="#actionAddPart" text="Add" />
                      </children>
                   </AnchorPane>
                   <AnchorPane layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="424.0" prefWidth="83.0">
@@ -48,18 +48,18 @@
                               <TableColumn fx:id="column_product_price" prefWidth="105.0" text="Price per Unit" />
                            </columns>
                         </TableView>
-                        <Button fx:id="button_product_search" layoutX="110.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#actionSearchProduct" text="Search" />
+                        <Button fx:id="button_product_search" layoutX="110.0" layoutY="14.0" mnemonicParsing="false" onAction="#actionSearchProduct" text="Search" />
                         <Label layoutX="14.0" layoutY="19.0" text="Products" />
                         <TextField fx:id="textfield_product" layoutX="194.0" layoutY="14.0" />
-                        <Button fx:id="button_product_delete" layoutX="330.0" layoutY="379.0" mnemonicParsing="false" onMouseClicked="#actionDeleteProduct" text="Delete" />
-                        <Button fx:id="button_product_modify" layoutX="255.0" layoutY="379.0" mnemonicParsing="false" onMouseClicked="#actionModifyProduct" text="Modify" />
-                        <Button fx:id="button_product_add" layoutX="198.0" layoutY="379.0" mnemonicParsing="false" onMouseClicked="#actionAddProduct" text="Add" />
+                        <Button fx:id="button_product_delete" layoutX="330.0" layoutY="379.0" mnemonicParsing="false" onAction="#actionDeleteProduct" text="Delete" />
+                        <Button fx:id="button_product_modify" layoutX="255.0" layoutY="379.0" mnemonicParsing="false" onAction="#actionModifyProduct" text="Modify" />
+                        <Button fx:id="button_product_add" layoutX="198.0" layoutY="379.0" mnemonicParsing="false" onAction="#actionAddProduct" text="Add" />
                      </children>
                   </AnchorPane>
               </items>
             </SplitPane>
          </children>
       </HBox>
-      <Button fx:id="button_exit" layoutX="711.0" layoutY="539.0" mnemonicParsing="false" onMouseClicked="#actionExit" text="Exit" />
+      <Button fx:id="button_exit" layoutX="711.0" layoutY="539.0" mnemonicParsing="false" onAction="#actionExit" text="Exit" />
    </children>
 </AnchorPane>
