@@ -40,7 +40,12 @@ public class Inventory {
         return getProducts().get(findProductIndex(productID));
     }
 
-    //todo updateProduct(int) : void -- doesn't make sense to have int as only input
+    public void updateProduct(Product oldProduct, Product newProduct) {
+        //Replaces the old product with a new one
+        int oldProductIndex = findProductIndex(oldProduct.getProductID());
+        getProducts().set(oldProductIndex, newProduct);
+    }
+
 
     private int findPartIndex(int partID) {
         //Returns the index of a part in allParts.
@@ -65,7 +70,11 @@ public class Inventory {
         return getAllParts().get(findPartIndex(partID));
     }
 
-    //todo updatePart(int) : void -- doesn't make sense to have int as only input
+    public void updatePart(Part oldPart, Part newPart) {
+        //Replaces the old part with a new one
+        int oldPartIndex = findPartIndex(oldPart.getPartID());
+        getAllParts().set(oldPartIndex, newPart);
+    }
 
     //Getters and Setters
     private ArrayList<Product> getProducts() {

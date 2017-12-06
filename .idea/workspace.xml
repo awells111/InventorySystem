@@ -71,8 +71,8 @@
       <file leaf-file-name="Inventory.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/model/Inventory.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="70" column="0" lean-forward="false" selection-start-line="70" selection-start-column="0" selection-end-line="84" selection-end-column="5" />
+            <state relative-caret-position="-198">
+              <caret line="40" column="5" lean-forward="false" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
               <folding>
                 <element signature="method#Inventory#0;class#Inventory#0" expanded="false" />
                 <element signature="method#findProductIndex#0;class#Inventory#0" expanded="false" />
@@ -80,11 +80,11 @@
                 <element signature="e#992#993#0" expanded="true" />
                 <element signature="e#1061#1062#0" expanded="true" />
                 <element signature="method#findPartIndex#0;class#Inventory#0" expanded="false" />
-                <element signature="e#1559#1560#0" expanded="true" />
-                <element signature="e#1608#1609#0" expanded="true" />
-                <element signature="e#1650#1651#0" expanded="true" />
-                <element signature="e#1713#1714#0" expanded="true" />
-                <marker date="1512590914630" expanded="false" signature="1825:2177" ph="..." />
+                <element signature="e#1734#1735#0" expanded="true" />
+                <element signature="e#1783#1784#0" expanded="true" />
+                <element signature="e#1825#1826#0" expanded="true" />
+                <element signature="e#1888#1889#0" expanded="true" />
+                <marker date="1512594055253" expanded="false" signature="2141:2493" ph="..." />
               </folding>
             </state>
           </provider>
@@ -145,6 +145,7 @@
     <findStrings>
       <find>-1</find>
       <find>associated</find>
+      <find>todo</find>
     </findStrings>
     <replaceStrings>
       <replace>ERROR_CODE_NO_PART</replace>
@@ -470,11 +471,11 @@
             <element signature="e#992#993#0" expanded="true" />
             <element signature="e#1061#1062#0" expanded="true" />
             <element signature="method#findPartIndex#0;class#Inventory#0" expanded="false" />
-            <element signature="e#1559#1560#0" expanded="true" />
-            <element signature="e#1608#1609#0" expanded="true" />
-            <element signature="e#1650#1651#0" expanded="true" />
-            <element signature="e#1713#1714#0" expanded="true" />
-            <marker date="1512590914630" expanded="false" signature="1825:2177" ph="..." />
+            <element signature="e#1734#1735#0" expanded="true" />
+            <element signature="e#1783#1784#0" expanded="true" />
+            <element signature="e#1825#1826#0" expanded="true" />
+            <element signature="e#1888#1889#0" expanded="true" />
+            <marker date="1512594055253" expanded="false" signature="2141:2493" ph="..." />
           </folding>
         </state>
       </provider>
@@ -549,11 +550,11 @@
             <element signature="e#992#993#0" expanded="true" />
             <element signature="e#1061#1062#0" expanded="true" />
             <element signature="method#findPartIndex#0;class#Inventory#0" expanded="false" />
-            <element signature="e#1559#1560#0" expanded="true" />
-            <element signature="e#1608#1609#0" expanded="true" />
-            <element signature="e#1650#1651#0" expanded="true" />
-            <element signature="e#1713#1714#0" expanded="true" />
-            <marker date="1512590914630" expanded="false" signature="1825:2177" ph="..." />
+            <element signature="e#1734#1735#0" expanded="true" />
+            <element signature="e#1783#1784#0" expanded="true" />
+            <element signature="e#1825#1826#0" expanded="true" />
+            <element signature="e#1888#1889#0" expanded="true" />
+            <marker date="1512594055253" expanded="false" signature="2141:2493" ph="..." />
           </folding>
         </state>
       </provider>
@@ -628,11 +629,11 @@
             <element signature="e#992#993#0" expanded="true" />
             <element signature="e#1061#1062#0" expanded="true" />
             <element signature="method#findPartIndex#0;class#Inventory#0" expanded="false" />
-            <element signature="e#1559#1560#0" expanded="true" />
-            <element signature="e#1608#1609#0" expanded="true" />
-            <element signature="e#1650#1651#0" expanded="true" />
-            <element signature="e#1713#1714#0" expanded="true" />
-            <marker date="1512590914630" expanded="false" signature="1825:2177" ph="..." />
+            <element signature="e#1734#1735#0" expanded="true" />
+            <element signature="e#1783#1784#0" expanded="true" />
+            <element signature="e#1825#1826#0" expanded="true" />
+            <element signature="e#1888#1889#0" expanded="true" />
+            <marker date="1512594055253" expanded="false" signature="2141:2493" ph="..." />
           </folding>
         </state>
       </provider>
@@ -811,8 +812,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/model/Inventory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="70" column="0" lean-forward="false" selection-start-line="70" selection-start-column="0" selection-end-line="84" selection-end-column="5" />
+        <state relative-caret-position="-198">
+          <caret line="40" column="5" lean-forward="false" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
           <folding>
             <element signature="method#Inventory#0;class#Inventory#0" expanded="false" />
             <element signature="method#findProductIndex#0;class#Inventory#0" expanded="false" />
@@ -820,11 +821,11 @@
             <element signature="e#992#993#0" expanded="true" />
             <element signature="e#1061#1062#0" expanded="true" />
             <element signature="method#findPartIndex#0;class#Inventory#0" expanded="false" />
-            <element signature="e#1559#1560#0" expanded="true" />
-            <element signature="e#1608#1609#0" expanded="true" />
-            <element signature="e#1650#1651#0" expanded="true" />
-            <element signature="e#1713#1714#0" expanded="true" />
-            <marker date="1512590914630" expanded="false" signature="1825:2177" ph="..." />
+            <element signature="e#1734#1735#0" expanded="true" />
+            <element signature="e#1783#1784#0" expanded="true" />
+            <element signature="e#1825#1826#0" expanded="true" />
+            <element signature="e#1888#1889#0" expanded="true" />
+            <marker date="1512594055253" expanded="false" signature="2141:2493" ph="..." />
           </folding>
         </state>
       </provider>
