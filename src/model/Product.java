@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
-public class Product {
+class Product {
 
     private ArrayList<Part> associatedParts;
     private int productID;
@@ -11,8 +11,6 @@ public class Product {
     private int inStock;
     private int min;
     private int max;
-
-    private static final int ERROR_CODE_NO_PART = -1;
 
     public Product(ArrayList<Part> associatedParts, int productID, String name, double price, int inStock, int min, int max) {
         this.associatedParts = associatedParts;
@@ -24,29 +22,19 @@ public class Product {
         this.max = max;
     }
 
-    //todo Do not allow parts with the same ID
-    //todo Do not allow negative numbers
     public void addAssociatedPart(Part part) {
         getAssociatedParts().add(part);
     }
 
     private int findPartIndex(int partID) {
-        //Returns the index of a part in associatedParts. If that part doesn't exist, return ERROR_CODE_NO_PART.
+        //Returns the index of a part in associatedParts.
         for (int i = 0; i < getAssociatedParts().size(); i++) {
             if (getAssociatedParts().get(i).getPartID() == partID) {
                 return i;
             }
         }
 
-        return ERROR_CODE_NO_PART;
-    }
-
-    private boolean isValidPart(int index) {
-        if (index != ERROR_CODE_NO_PART) {
-            return true;
-        }
-
-        return false;
+        return -1;
     }
 
     public boolean removeAssociatedPart(Part part) {
@@ -54,26 +42,16 @@ public class Product {
     }
 
     public boolean removeAssociatedPart(int partID) {
-        //Returns true if part is removed, false if no part is found or removed.
-        int index = findPartIndex(partID);
-        if (isValidPart(index)) {
-            getAssociatedParts().remove(index);
-            return true;
-        }
-
-        return false;
+        getAssociatedParts().remove(findPartIndex(partID));
+        return true;
     }
 
     public Part lookupAssociatedPart(int partID) {
-        int index = findPartIndex(partID);
-        if (isValidPart(index)) {
-            return getAssociatedParts().get(index);
-        }
-
-        //todo Handle invalid partID error
-        return null;
+        return getAssociatedParts().get(findPartIndex(partID));
     }
 
+
+    //Getters and Setters
     private ArrayList<Part> getAssociatedParts() {
         return associatedParts;
     }
