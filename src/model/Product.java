@@ -12,6 +12,8 @@ public class Product {
     private int min;
     private int max;
 
+    private static final int ERROR_CODE_NO_PART = -1;
+
     public Product(ArrayList<Part> associatedParts, int productID, String name, double price, int inStock, int min, int max) {
         this.associatedParts = associatedParts;
         this.productID = productID;
@@ -22,9 +24,63 @@ public class Product {
         this.max = max;
     }
 
-    //todo addAssociatedPart(part) : void
-    //todo removeAssociatedPart(int) : boolean
-    //todo lookupAssociatedPart(int) : part
+    //todo Do not allow parts with the same ID
+    //todo Do not allow negative numbers
+    public void addAssociatedPart(Part part) {
+        getAssociatedParts().add(part);
+    }
+
+    private int findPartIndex(int partID) {
+        //Returns the index of a part in associatedParts. If that part doesn't exist, return ERROR_CODE_NO_PART.
+        for (int i = 0; i < getAssociatedParts().size(); i++) {
+            if (getAssociatedParts().get(i).getPartID() == partID) {
+                return i;
+            }
+        }
+
+        return ERROR_CODE_NO_PART;
+    }
+
+    private boolean isValidPart(int index) {
+        if (index != ERROR_CODE_NO_PART) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean removeAssociatedPart(Part part) {
+        return removeAssociatedPart(part.getPartID());
+    }
+
+    public boolean removeAssociatedPart(int partID) {
+        //Returns true if part is removed, false if no part is found or removed.
+        int index = findPartIndex(partID);
+        if (isValidPart(index)) {
+            getAssociatedParts().remove(index);
+            return true;
+        }
+
+        return false;
+    }
+
+    public Part lookupAssociatedPart(int partID) {
+        int index = findPartIndex(partID);
+        if (isValidPart(index)) {
+            return getAssociatedParts().get(index);
+        }
+
+        //todo Handle invalid partID error
+        return null;
+    }
+
+    private ArrayList<Part> getAssociatedParts() {
+        return associatedParts;
+    }
+
+    public void setAssociatedParts(ArrayList<Part> associatedParts) {
+        this.associatedParts = associatedParts;
+    }
 
     public int getProductID() {
         return productID;
