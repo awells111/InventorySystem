@@ -2,7 +2,7 @@ package main.model;
 
 import javafx.beans.property.*;
 
-abstract class Part {
+public abstract class Part {
 
     private final IntegerProperty partID;
     private final StringProperty name;

@@ -4,7 +4,7 @@ import javafx.beans.property.*;
 
 import java.util.ArrayList;
 
-class Product {
+public class Product {
 
     private ArrayList<Part> associatedParts;
     private final IntegerProperty productID;
