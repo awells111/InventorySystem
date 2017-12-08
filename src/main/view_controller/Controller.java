@@ -1,4 +1,4 @@
-package main.sample;
+package main.view_controller;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
