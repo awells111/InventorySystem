@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
+            prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="main.sample.Controller">
+    <children>
+        <Label layoutX="14.0" layoutY="22.0" text="Inventory Management System" AnchorPane.leftAnchor="5.0"
+               AnchorPane.topAnchor="14.0"/>
+        <AnchorPane layoutY="49.0" prefHeight="490.0" prefWidth="838.0" AnchorPane.bottomAnchor="61.0"
+                    AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="49.0">
+            <children>
+                <SplitPane dividerPositions="0.5" prefHeight="490.0" prefWidth="790.0" AnchorPane.bottomAnchor="0.0"
+                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <items>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="424.0" prefWidth="83.0">
+                            <children>
+                                <TableView fx:id="tableview_part" layoutY="60.0" prefHeight="304.0" prefWidth="395.0"
+                                           AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="0.0"
+                                           AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+                                    <columns>
+                                        <TableColumn fx:id="column_part_id" prefWidth="92.0" text="Part ID"/>
+                                        <TableColumn fx:id="column_part_name" minWidth="0.0" prefWidth="93.0"
+                                                     text="Part Name"/>
+                                        <TableColumn fx:id="column_part_level" prefWidth="104.0"
+                                                     text="Inventory Level"/>
+                                        <TableColumn fx:id="column_part_price" prefWidth="105.0"
+                                                     text="Price/Cost per Unit"/>
+                                    </columns>
+                                    <columnResizePolicy>
+                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                                    </columnResizePolicy>
+                                </TableView>
+                                <Button fx:id="button_part_search" layoutX="110.0" layoutY="14.0"
+                                        mnemonicParsing="false" onAction="#actionSearchPart" text="Search"/>
+                                <Label layoutX="14.0" layoutY="19.0" text="Parts"/>
+                                <TextField fx:id="textfield_part" layoutX="194.0" layoutY="14.0"/>
+                                <Button fx:id="button_part_delete" layoutX="330.0" layoutY="379.0"
+                                        mnemonicParsing="false" onAction="#actionDeletePart" text="Delete"
+                                        AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="5.0"/>
+                                <Button fx:id="button_part_modify" layoutX="246.0" layoutY="379.0"
+                                        mnemonicParsing="false" onAction="#actionModifyPart" text="Modify"
+                                        AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="75.0"/>
+                                <Button fx:id="button_part_add" layoutX="193.0" layoutY="379.0" mnemonicParsing="false"
+                                        onAction="#actionAddPart" text="Add" AnchorPane.bottomAnchor="14.0"
+                                        AnchorPane.rightAnchor="147.0"/>
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="424.0"
+                                    prefWidth="83.0">
+                            <children>
+                                <TableView fx:id="tableview_product" layoutY="60.0" prefHeight="304.0" prefWidth="395.0"
+                                           AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="0.0"
+                                           AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+                                    <columns>
+                                        <TableColumn fx:id="column_product_id" prefWidth="92.0" text="Product ID"/>
+                                        <TableColumn fx:id="column_product_" minWidth="0.0" prefWidth="93.0"
+                                                     text="Product Name"/>
+                                        <TableColumn fx:id="column_product_level" prefWidth="104.0"
+                                                     text="Inventory Level"/>
+                                        <TableColumn fx:id="column_product_price" prefWidth="105.0"
+                                                     text="Price per Unit"/>
+                                    </columns>
+                                    <columnResizePolicy>
+                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                                    </columnResizePolicy>
+                                </TableView>
+                                <Button fx:id="button_product_search" layoutX="110.0" layoutY="14.0"
+                                        mnemonicParsing="false" onAction="#actionSearchProduct" text="Search"/>
+                                <Label layoutX="14.0" layoutY="19.0" text="Products"/>
+                                <TextField fx:id="textfield_product" layoutX="194.0" layoutY="14.0"/>
+                                <Button fx:id="button_product_delete" layoutX="330.0" layoutY="379.0"
+                                        mnemonicParsing="false" onAction="#actionDeleteProduct" text="Delete"
+                                        AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="5.0"/>
+                                <Button fx:id="button_product_modify" layoutX="255.0" layoutY="379.0"
+                                        mnemonicParsing="false" onAction="#actionModifyProduct" text="Modify"
+                                        AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="75.0"/>
+                                <Button fx:id="button_product_add" layoutX="198.0" layoutY="379.0"
+                                        mnemonicParsing="false" onAction="#actionAddProduct" text="Add"
+                                        AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="147.0"/>
+                            </children>
+                        </AnchorPane>
+                    </items>
+                </SplitPane>
+            </children>
+        </AnchorPane>
+        <Button fx:id="button_exit" layoutX="711.0" layoutY="539.0" mnemonicParsing="false" onAction="#actionExit"
+                text="Exit" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0"/>
+    </children>
+</AnchorPane>

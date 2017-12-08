@@ -1,4 +1,4 @@
-package sample;
+package main.sample;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -7,7 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 public class Controller {
 
