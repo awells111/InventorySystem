@@ -45,14 +45,9 @@ public class Inventory {
         return getProducts().get(findProductIndex(productID));
     }
 
-    public void updateProduct(Product oldProduct, Product newProduct) {
-        //Replaces the old product with a new one
-        updateProduct(oldProduct.getProductID(), newProduct);
-    }
-
-    public void updateProduct(int oldProductID, Product newProduct) {
-        //Replaces the old product with a new one
-        getProducts().set(findProductIndex(oldProductID), newProduct);
+    public void updateProduct(Product newProduct) {
+        //Replaces the old product with a new one. This is only possible because the productID stays the same.
+        getProducts().set(findProductIndex(newProduct.getProductID()), newProduct);
     }
 
     private int findPartIndex(int partID) {
@@ -80,14 +75,9 @@ public class Inventory {
         return getAllParts().get(findPartIndex(partID));
     }
 
-    public void updatePart(Part oldPart, Part newPart) {
-        //Replaces the old part with a new one
-        updatePart(oldPart.getPartID(), newPart);
-    }
-
-    public void updatePart(int oldPartID, Part newPart) {
-        //Replaces the old part with a new one
-        getAllParts().set(findPartIndex(oldPartID), newPart);
+    public void updatePart(Part newPart) {
+        //Replaces the old part with a new one. This is only possible because the partID stays the same.
+        getAllParts().set(findPartIndex(newPart.getPartID()), newPart);
     }
 
     //Getters and Setters

@@ -1,8 +1,6 @@
 package main;
 
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -92,7 +90,7 @@ public class Main extends Application {
         return primaryStage;
     }
 
-    public boolean showAddPart(Part part) {
+    public void showAddPart(Part part) {
 
         try {
             // Load the fxml file and create a new stage for the popup dialog.
@@ -116,10 +114,8 @@ public class Main extends Application {
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
 
-            return controller.isSaveClicked();
         } catch (IOException e) {
             e.printStackTrace();
-            return false;
         }
     }
 

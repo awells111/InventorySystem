@@ -110,17 +110,14 @@ public class MainScreenController {
 
     @FXML
     void handleModifyPart(ActionEvent event) {
-
+        Part selectedPart = tableviewPart.getSelectionModel().getSelectedItem();
+        mainApp.showAddPart(selectedPart);
     }
 
     @FXML
     void handleAddPart(ActionEvent event) {
-        //todo not all parts will be inhousepart
         Part newPart = new InhousePart();
-        boolean saveClicked = mainApp.showAddPart(newPart);
-        if (saveClicked) {
-            mainApp.getInventory().addPart(newPart);
-        }
+        mainApp.showAddPart(newPart);
     }
 
     @FXML

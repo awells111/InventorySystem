@@ -27,11 +27,11 @@
             <Label text="Add Part" />
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1">
                <children>
-                  <RadioButton fx:id="radioButtonInHouse" mnemonicParsing="false" selected="true" text="In-House">
+                  <RadioButton fx:id="radioButtonInHouse" mnemonicParsing="false" text="In-House">
                      <toggleGroup>
                         <ToggleGroup fx:id="inHouse" />
                      </toggleGroup></RadioButton>
-                  <RadioButton fx:id="radioButtonOutSourcecd" mnemonicParsing="false" text="Outsourced" toggleGroup="$inHouse" />
+                  <RadioButton fx:id="radioButtonOutSourced" mnemonicParsing="false" text="Outsourced" toggleGroup="$inHouse" />
                </children>
             </HBox>
             <Label text="ID" GridPane.rowIndex="1" />

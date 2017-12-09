@@ -17,7 +17,7 @@ public class AddPartController {
     private RadioButton radioButtonInHouse;
 
     @FXML
-    private RadioButton radioButtonOutSourcecd;
+    private RadioButton radioButtonOutSourced;
 
     @FXML
     private Label labelPartID;
@@ -58,7 +58,12 @@ public class AddPartController {
         this.inventory = inventory;
         this.part = part;
 
-        labelPartID.setText(Integer.toString(this.inventory.getPartCount()));
+        if (part.getPartID() == -1) { //If this is a new part, use inventory.getPartCount to set its partID
+            labelPartID.setText(Integer.toString(this.inventory.getPartCount()));
+        } else { //Else use the original partID
+            labelPartID.setText(Integer.toString(part.getPartID()));
+        }
+
         textfieldPartName.setText(part.getName());
         textfieldPartInv.setText(Integer.toString(part.getInStock()));
         textfieldPartPrice.setText(Double.toString(part.getPrice()));
@@ -69,7 +74,7 @@ public class AddPartController {
             radioButtonInHouse.selectedProperty().set(true);
             textfieldPartMachineID.setText(Integer.toString(((InhousePart) part).getMachineID()));
         } else if (partIsOutsourced()) {
-            radioButtonOutSourcecd.selectedProperty().set(true);
+            radioButtonOutSourced.selectedProperty().set(true);
             textfieldPartMachineID.setText(((OutsourcedPart) part).getCompanyName());
         } else {
             textfieldPartMachineID.setText("");
@@ -77,17 +82,12 @@ public class AddPartController {
     }
 
     @FXML
-    void handlePartSave(ActionEvent event) {
-
-        if(radioButtonInHouse.isSelected() && partIsOutsourced()) {
+    void handlePartSave() {
+        if(radioButtonInHouse.isSelected()) { //todo make sure this works
             part = new InhousePart();
-        } else if (radioButtonOutSourcecd.isSelected() && partIsInhouse()) {
-            part = new OutsourcedPart();
-        }
-
-        if (isSaveClicked() && partIsInhouse()) {
             ((InhousePart) part).setMachineID(Integer.parseInt(textfieldPartMachineID.getText()));
-        } else if (isSaveClicked() && partIsOutsourced()) {
+        } else if (radioButtonOutSourced.isSelected()) {
+            part = new OutsourcedPart();  //todo instantiating a new part removes all of our work. we need to somehow set the old object to the new time without instantiating a new object.
             ((OutsourcedPart) part).setCompanyName(textfieldPartMachineID.getText());
         }
 
@@ -97,13 +97,19 @@ public class AddPartController {
         part.setPrice(Double.parseDouble(textfieldPartPrice.getText()));
         part.setMin(Integer.parseInt(textfieldPartMin.getText()));
         part.setMax(Integer.parseInt(textfieldPartMax.getText()));
-        
+
+        if (!isNewPart()) {
+            inventory.updatePart(part);
+        } else if (isNewPart()) {
+            inventory.addPart(part);
+        }
+
         setSaveClicked();
         dialogStage.close();
     }
 
     @FXML
-    void handlePartCancel(ActionEvent event) {
+    void handlePartCancel() {
         dialogStage.close();
     }
 
@@ -121,5 +127,9 @@ public class AddPartController {
 
     private boolean partIsOutsourced() {
         return part instanceof OutsourcedPart;
+    }
+
+    private boolean isNewPart() {
+        return part.getPartID() == inventory.getPartCount();
     }
 }
