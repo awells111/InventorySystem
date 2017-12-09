@@ -1,19 +1,24 @@
 package main.model;
 
-import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Inventory {
 
-    private ArrayList<Product> products;
-    private ArrayList<Part> allParts;
+    private ObservableList<Product> products = FXCollections.observableArrayList();
+    private ObservableList<Part> allParts = FXCollections.observableArrayList();
 
-    public Inventory(ArrayList<Product> products, ArrayList<Part> allParts) {
-        this.products = products;
-        this.allParts = allParts;
+    private int partCount = 1;
+    private int productCount = 1;
+
+    public Inventory() {
+
     }
 
     public void addProduct(Product product) {
+        product.setProductID(productCount);
         products.add(product);
+        productCount++;
     }
 
     private int findProductIndex(int productID) {
@@ -62,7 +67,9 @@ public class Inventory {
     }
 
     public void addPart(Part part) {
+        part.setPartID(partCount);
         getAllParts().add(part);
+        partCount++;
     }
 
     public boolean deletePart(Part part) {
@@ -84,19 +91,12 @@ public class Inventory {
     }
 
     //Getters and Setters
-    private ArrayList<Product> getProducts() {
+
+    public ObservableList<Product> getProducts() {
         return products;
     }
 
-    private void setProducts(ArrayList<Product> products) {
-        this.products = products;
-    }
-
-    private ArrayList<Part> getAllParts() {
+    public ObservableList<Part> getAllParts() {
         return allParts;
-    }
-
-    private void setAllParts(ArrayList<Part> allParts) {
-        this.allParts = allParts;
     }
 }

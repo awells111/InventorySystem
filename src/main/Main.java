@@ -4,15 +4,11 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import main.model.InhousePart;
-import main.model.OutsourcedPart;
-import main.model.Part;
-import main.model.Product;
+import main.model.*;
 import main.view_controller.AddPartController;
 import main.view_controller.AddProductController;
 import main.view_controller.MainScreenController;
@@ -29,38 +25,29 @@ public class Main extends Application {
     private Stage primaryStage;
     private AnchorPane rootLayout;
 
-    private ObservableList<Part> partData = FXCollections.observableArrayList();
-    private ObservableList<Product> productData = FXCollections.observableArrayList();
-
-    public ObservableList<Part> getPartData() {
-        return partData;
-    }
-
-    public ObservableList<Product> getProductData() {
-        return productData;
-    }
+    private Inventory inventory = new Inventory();
 
     private void addSampleData() {
         //todo delete in final app version
-        partData.add(new InhousePart(1, "A", 1.0, 5, 1, 5, 10));
-        partData.add(new OutsourcedPart(2, "B", 1.0, 5, 1, 5, "Company"));
-        partData.add(new InhousePart(3, "C", 1.0, 5, 1, 5, 10));
-        partData.add(new OutsourcedPart(4, "D", 1.0, 5, 1, 5, "Company"));
-        partData.add(new InhousePart(5, "E", 1.0, 5, 1, 5, 10));
-        partData.add(new OutsourcedPart(6, "F", 1.0, 5, 1, 5, "Company"));
-        partData.add(new InhousePart(7, "G", 1.0, 5, 1, 5, 10));
-        partData.add(new OutsourcedPart(8, "H", 1.0, 5, 1, 5, "Company"));
+        inventory.addPart(new InhousePart("A", 1.0, 5, 1, 5, 10));
+        inventory.addPart(new OutsourcedPart("B", 1.0, 5, 1, 5, "Company"));
+        inventory.addPart(new InhousePart("C", 1.0, 5, 1, 5, 10));
+        inventory.addPart(new OutsourcedPart("D", 1.0, 5, 1, 5, "Company"));
+        inventory.addPart(new InhousePart("E", 1.0, 5, 1, 5, 10));
+        inventory.addPart(new OutsourcedPart("F", 1.0, 5, 1, 5, "Company"));
+        inventory.addPart(new InhousePart("G", 1.0, 5, 1, 5, 10));
+        inventory.addPart(new OutsourcedPart("H", 1.0, 5, 1, 5, "Company"));
 
         ArrayList<Part> sampleParts = new ArrayList<>();
-        sampleParts.add(partData.get(0));
-        sampleParts.add(partData.get(1));
-        sampleParts.add(partData.get(2));
-        sampleParts.add(partData.get(3));
+        sampleParts.add(inventory.lookupPart(1));
+        sampleParts.add(inventory.lookupPart(2));
+        sampleParts.add(inventory.lookupPart(3));
+        sampleParts.add(inventory.lookupPart(4));
 
-        productData.add(new Product(sampleParts, 1, "AA", 1.5, 1, 5, 10));
-        productData.add(new Product(sampleParts, 1, "AB", 1.5, 1, 5, 10));
-        productData.add(new Product(sampleParts, 1, "AC", 1.5, 1, 5, 10));
-        productData.add(new Product(sampleParts, 1, "AD", 1.5, 1, 5, 10));
+        inventory.addProduct(new Product(sampleParts, "AA", 1.5, 1, 5, 10));
+        inventory.addProduct(new Product(sampleParts, "AB", 1.5, 1, 5, 10));
+        inventory.addProduct(new Product(sampleParts, "AC", 1.5, 1, 5, 10));
+        inventory.addProduct(new Product(sampleParts, "AD", 1.5, 1, 5, 10));
     }
 
     @Override
@@ -161,5 +148,9 @@ public class Main extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public Inventory getInventory() {
+        return inventory;
     }
 }

@@ -14,7 +14,11 @@ public class Product {
     private final IntegerProperty min;
     private final IntegerProperty max;
 
-    public Product(ArrayList<Part> associatedParts, int productID, String name, double price, int inStock, int min, int max) {
+    public Product(ArrayList<Part> associatedParts, String name, double price, int inStock, int min, int max) {
+        this(associatedParts, -1, name, price, inStock, min, max);
+    }
+
+    private Product(ArrayList<Part> associatedParts, int productID, String name, double price, int inStock, int min, int max) {
         this.associatedParts = associatedParts;
         this.productID = new SimpleIntegerProperty(productID);
         this.name = new SimpleStringProperty(name);

@@ -7,7 +7,15 @@ public class OutsourcedPart extends Part {
 
     private final StringProperty companyName;
 
-    public OutsourcedPart(int partID, String name, double price, int inStock, int min, int max, String companyName) {
+    public OutsourcedPart() {
+        this("", 0, 0, 0, 0, "");
+    }
+
+    public OutsourcedPart(String name, double price, int inStock, int min, int max, String companyName) {
+        this(-1, name, price, inStock, min, max, companyName);
+    }
+
+    private OutsourcedPart(int partID, String name, double price, int inStock, int min, int max, String companyName) {
         super(partID, name, price, inStock, min, max);
         this.companyName = new SimpleStringProperty(companyName);
     }

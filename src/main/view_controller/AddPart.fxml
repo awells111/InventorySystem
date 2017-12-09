@@ -27,7 +27,7 @@
             <Label text="Add Part" />
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1">
                <children>
-                  <RadioButton mnemonicParsing="false" text="In-House">
+                  <RadioButton mnemonicParsing="false" selected="true" text="In-House">
                      <toggleGroup>
                         <ToggleGroup fx:id="inHouse" />
                      </toggleGroup></RadioButton>

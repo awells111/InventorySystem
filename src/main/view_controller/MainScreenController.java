@@ -93,8 +93,8 @@ public class MainScreenController {
     public void setMainApp(Main mainApp) {
         this.mainApp = mainApp;
 
-        tableviewPart.setItems(mainApp.getPartData());
-        tableviewProduct.setItems(mainApp.getProductData());
+        tableviewPart.setItems(mainApp.getInventory().getAllParts());
+        tableviewProduct.setItems(mainApp.getInventory().getProducts());
     }
 
     @FXML
@@ -115,10 +115,7 @@ public class MainScreenController {
 
     @FXML
     void handleAddPart(ActionEvent event) {
-        //todo have default set to inhousepart
-
-        //todo delete sample part
-        mainApp.showAddPart(new InhousePart(9, "I", 1.0, 5, 1, 5, 10));
+        mainApp.showAddPart(new InhousePart());
     }
 
     @FXML

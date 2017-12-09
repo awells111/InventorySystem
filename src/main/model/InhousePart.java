@@ -8,10 +8,14 @@ public class InhousePart extends Part {
     private final IntegerProperty machineID;
 
     public InhousePart() {
-        this(0, null, 0.0, 0, 0, 0, 0);
+        this("", 0, 0, 0, 0, 0);
     }
 
-    public InhousePart(int partID, String name, double price, int inStock, int min, int max, int machineID) {
+    public InhousePart(String name, double price, int inStock, int min, int max, int machineID) {
+        this(-1, name, price, inStock, min, max, machineID);
+    }
+
+    private InhousePart(int partID, String name, double price, int inStock, int min, int max, int machineID) {
         super(partID, name, price, inStock, min, max);
         this.machineID = new SimpleIntegerProperty(machineID);
     }
