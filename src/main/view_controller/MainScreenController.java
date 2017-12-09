@@ -104,7 +104,8 @@ public class MainScreenController {
 
     @FXML
     void handleDeletePart(ActionEvent event) {
-
+        int selectedIndex = tableviewPart.getSelectionModel().getSelectedIndex();
+        tableviewPart.getItems().remove(selectedIndex);
     }
 
     @FXML
@@ -127,7 +128,8 @@ public class MainScreenController {
 
     @FXML
     void handleDeleteProduct(ActionEvent event) {
-
+        int selectedIndex = tableviewProduct.getSelectionModel().getSelectedIndex();
+        tableviewProduct.getItems().remove(selectedIndex);
     }
 
     @FXML
