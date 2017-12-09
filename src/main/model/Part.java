@@ -37,7 +37,7 @@ public abstract class Part {
         return name.get();
     }
 
-    public StringProperty nameProperty() {
+    public StringProperty partNameProperty() {
         return name;
     }
 
@@ -49,7 +49,7 @@ public abstract class Part {
         return price.get();
     }
 
-    public DoubleProperty priceProperty() {
+    public DoubleProperty partPriceProperty() {
         return price;
     }
 
@@ -61,7 +61,7 @@ public abstract class Part {
         return inStock.get();
     }
 
-    public IntegerProperty inStockProperty() {
+    public IntegerProperty partInStockProperty() {
         return inStock;
     }
 
@@ -73,7 +73,7 @@ public abstract class Part {
         return min.get();
     }
 
-    public IntegerProperty minProperty() {
+    public IntegerProperty partMinProperty() {
         return min;
     }
 
@@ -85,7 +85,7 @@ public abstract class Part {
         return max.get();
     }
 
-    public IntegerProperty maxProperty() {
+    public IntegerProperty partMaxProperty() {
         return max;
     }
 

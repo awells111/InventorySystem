@@ -78,7 +78,7 @@ public class Product {
         return name.get();
     }
 
-    public StringProperty nameProperty() {
+    public StringProperty productNameProperty() {
         return name;
     }
 
@@ -90,7 +90,7 @@ public class Product {
         return price.get();
     }
 
-    public DoubleProperty priceProperty() {
+    public DoubleProperty productPriceProperty() {
         return price;
     }
 
@@ -102,7 +102,7 @@ public class Product {
         return inStock.get();
     }
 
-    public IntegerProperty inStockProperty() {
+    public IntegerProperty productInStockProperty() {
         return inStock;
     }
 
@@ -114,7 +114,7 @@ public class Product {
         return min.get();
     }
 
-    public IntegerProperty minProperty() {
+    public IntegerProperty productMinProperty() {
         return min;
     }
 
@@ -126,7 +126,7 @@ public class Product {
         return max.get();
     }
 
-    public IntegerProperty maxProperty() {
+    public IntegerProperty productMaxProperty() {
         return max;
     }
 

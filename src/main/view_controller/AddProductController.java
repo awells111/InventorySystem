@@ -6,10 +6,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import main.model.Part;
 import main.model.Product;
 
 public class AddProductController {
+
+    public static final String FXML_ADD_PRODUCT = "view_controller/AddProduct.fxml";
 
     @FXML
     private Label labelProductID;
@@ -61,6 +64,18 @@ public class AddProductController {
 
     @FXML
     private TableColumn<Part, Double> columnProductPartPrice;
+
+    private Stage dialogStage;
+    private Product product;
+    private boolean saveClicked = false;
+
+    @FXML
+    private void initialize() {
+    }
+
+    public void setDialogStage(Stage dialogStage) {
+        this.dialogStage = dialogStage;
+    }
 
     @FXML
     void handleSearchPart(ActionEvent event) {

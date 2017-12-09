@@ -6,10 +6,16 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import main.Main;
+import main.model.InhousePart;
 import main.model.Part;
 import main.model.Product;
 
 public class MainScreenController {
+
+    public static final String FXML_MAIN_SCREEN = "view_controller/MainScreen.fxml";
+
+    private Main mainApp;
 
     @FXML
     private TextField textfieldPart;
@@ -48,6 +54,50 @@ public class MainScreenController {
     private TableColumn<Product, Double> columnProductPrice;
 
     @FXML
+    private void initialize() {
+
+        //Need to add .asObject() for non-Strings in JavaFX
+        columnPartID.setCellValueFactory(
+                cellData -> cellData.getValue().partIDProperty().asObject()
+        );
+
+        columnPartName.setCellValueFactory(
+                cellData -> cellData.getValue().partNameProperty()
+        );
+
+        columnPartLevel.setCellValueFactory(
+                cellData -> cellData.getValue().partInStockProperty().asObject()
+        );
+
+        columnPartPrice.setCellValueFactory(
+                cellData -> cellData.getValue().partPriceProperty().asObject()
+        );
+
+        columnProductID.setCellValueFactory(
+                cellData -> cellData.getValue().productIDProperty().asObject()
+        );
+
+        columnProductName.setCellValueFactory(
+                cellData -> cellData.getValue().productNameProperty()
+        );
+
+        columnProductLevel.setCellValueFactory(
+                cellData -> cellData.getValue().productInStockProperty().asObject()
+        );
+
+        columnProductPrice.setCellValueFactory(
+                cellData -> cellData.getValue().productPriceProperty().asObject()
+        );
+    }
+
+    public void setMainApp(Main mainApp) {
+        this.mainApp = mainApp;
+
+        tableviewPart.setItems(mainApp.getPartData());
+        tableviewProduct.setItems(mainApp.getProductData());
+    }
+
+    @FXML
     void handleSearchPart(ActionEvent event) {
 
     }
@@ -64,7 +114,10 @@ public class MainScreenController {
 
     @FXML
     void handleAddPart(ActionEvent event) {
+        //todo have default set to inhousepart
 
+        //todo delete sample part
+        mainApp.showAddPart(new InhousePart(9, "I", 1.0, 5, 1, 5, 10));
     }
 
     @FXML
@@ -84,7 +137,7 @@ public class MainScreenController {
 
     @FXML
     void handleAddProduct(ActionEvent event) {
-
+        mainApp.showAddProduct();
     }
 
     @FXML
