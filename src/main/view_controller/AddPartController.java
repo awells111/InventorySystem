@@ -2,10 +2,7 @@ package main.view_controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Toggle;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import main.model.InhousePart;
 import main.model.Inventory;
@@ -17,7 +14,10 @@ public class AddPartController {
     public static final String FXML_ADD_PART = "view_controller/AddPart.fxml";
 
     @FXML
-    private ToggleGroup togglegroupInHouse;
+    private RadioButton radioButtonInHouse;
+
+    @FXML
+    private RadioButton radioButtonOutSourcecd;
 
     @FXML
     private Label labelPartID;
@@ -43,6 +43,7 @@ public class AddPartController {
     private Stage dialogStage;
     private Part part;
     private boolean saveClicked = false;
+    private Inventory inventory;
 
     @FXML
     private void initialize() {
@@ -54,18 +55,21 @@ public class AddPartController {
     }
 
     public void setPart(Inventory inventory, Part part) {
+        this.inventory = inventory;
         this.part = part;
-        //todo fix radio group
-        labelPartID.setText(Integer.toString(inventory.getPartCount()));
+
+        labelPartID.setText(Integer.toString(this.inventory.getPartCount()));
         textfieldPartName.setText(part.getName());
         textfieldPartInv.setText(Integer.toString(part.getInStock()));
         textfieldPartPrice.setText(Double.toString(part.getPrice()));
         textfieldPartMin.setText(Integer.toString(part.getMin()));
         textfieldPartMax.setText(Integer.toString(part.getMax()));
 
-        if (isInhouse()) {
+        if (partIsInhouse()) {
+            radioButtonInHouse.selectedProperty().set(true);
             textfieldPartMachineID.setText(Integer.toString(((InhousePart) part).getMachineID()));
-        } else if (isOutsourced()) {
+        } else if (partIsOutsourced()) {
+            radioButtonOutSourcecd.selectedProperty().set(true);
             textfieldPartMachineID.setText(((OutsourcedPart) part).getCompanyName());
         } else {
             textfieldPartMachineID.setText("");
@@ -74,7 +78,18 @@ public class AddPartController {
 
     @FXML
     void handlePartSave(ActionEvent event) {
-        //todo if checkbox is different than part type, set new part type
+
+        if(radioButtonInHouse.isSelected() && partIsOutsourced()) {
+            part = new InhousePart();
+        } else if (radioButtonOutSourcecd.isSelected() && partIsInhouse()) {
+            part = new OutsourcedPart();
+        }
+
+        if (isSaveClicked() && partIsInhouse()) {
+            ((InhousePart) part).setMachineID(Integer.parseInt(textfieldPartMachineID.getText()));
+        } else if (isSaveClicked() && partIsOutsourced()) {
+            ((OutsourcedPart) part).setCompanyName(textfieldPartMachineID.getText());
+        }
 
         part.setPartID(Integer.parseInt(labelPartID.getText()));
         part.setName(textfieldPartName.getText());
@@ -82,13 +97,7 @@ public class AddPartController {
         part.setPrice(Double.parseDouble(textfieldPartPrice.getText()));
         part.setMin(Integer.parseInt(textfieldPartMin.getText()));
         part.setMax(Integer.parseInt(textfieldPartMax.getText()));
-
-        if (isSaveClicked() && isInhouse()) {
-            ((InhousePart) part).setMachineID(Integer.parseInt(textfieldPartMachineID.getText()));
-        } else if (isSaveClicked() && isOutsourced()) {
-            ((OutsourcedPart) part).setCompanyName(textfieldPartMachineID.getText());
-        }
-
+        
         setSaveClicked();
         dialogStage.close();
     }
@@ -106,11 +115,11 @@ public class AddPartController {
         return saveClicked;
     }
 
-    private boolean isInhouse() {
+    private boolean partIsInhouse() {
         return part instanceof InhousePart;
     }
 
-    private boolean isOutsourced() {
+    private boolean partIsOutsourced() {
         return part instanceof OutsourcedPart;
     }
 }
