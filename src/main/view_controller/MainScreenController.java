@@ -115,7 +115,12 @@ public class MainScreenController {
 
     @FXML
     void handleAddPart(ActionEvent event) {
-        mainApp.showAddPart(new InhousePart());
+        //todo not all parts will be inhousepart
+        Part newPart = new InhousePart();
+        boolean saveClicked = mainApp.showAddPart(newPart);
+        if (saveClicked) {
+            mainApp.getInventory().addPart(newPart);
+        }
     }
 
     @FXML

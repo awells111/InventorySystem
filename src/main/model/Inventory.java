@@ -91,12 +91,19 @@ public class Inventory {
     }
 
     //Getters and Setters
-
     public ObservableList<Product> getProducts() {
         return products;
     }
 
     public ObservableList<Part> getAllParts() {
         return allParts;
+    }
+
+    public int getPartCount() {
+        return partCount;
+    }
+
+    public int getProductCount() {
+        return productCount;
     }
 }
