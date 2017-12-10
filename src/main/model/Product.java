@@ -63,7 +63,7 @@ public class Product {
 
 
     //Getters and Setters
-    private ArrayList<Part> getAssociatedParts() {
+    public ArrayList<Part> getAssociatedParts() {
         return associatedParts;
     }
 

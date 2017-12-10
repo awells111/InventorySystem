@@ -43,7 +43,6 @@ public class AddPartController {
 
     private Stage dialogStage;
     private Part part;
-    private boolean saveClicked = false;
     private Inventory inventory;
 
     @FXML
@@ -104,21 +103,12 @@ public class AddPartController {
             inventory.addPart(part);
         }
 
-        setSaveClicked();
         dialogStage.close();
     }
 
     @FXML
     void handlePartCancel() {
         dialogStage.close();
-    }
-
-    private void setSaveClicked() {
-        this.saveClicked = true;
-    }
-
-    public boolean isSaveClicked() {
-        return saveClicked;
     }
 
     private boolean partIsInhouse() {

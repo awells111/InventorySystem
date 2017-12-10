@@ -138,6 +138,7 @@ public class Main extends Application {
             AddProductController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setProduct(inventory, product);
+            controller.initTables();
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();

@@ -1,5 +1,7 @@
 package main.view_controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -8,6 +10,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import main.model.*;
+
+import java.util.Observable;
 
 public class AddProductController {
 
@@ -50,7 +54,7 @@ public class AddProductController {
     private TableColumn<Part, Double> columnAddPartPrice;
 
     @FXML
-    private TableView<Product> tableviewProductPart;
+    private TableView<Part> tableviewProductPart;
 
     @FXML
     private TableColumn<Part, Integer> columnProductPartID;
@@ -66,11 +70,42 @@ public class AddProductController {
 
     private Stage dialogStage;
     private Product product;
-    private boolean saveClicked = false;
     private Inventory inventory;
+    ObservableList<Part> parts;
 
     @FXML
     private void initialize() {
+        columnAddPartID.setCellValueFactory(
+                cellData -> cellData.getValue().partIDProperty().asObject()
+        );
+
+        columnAddPartName.setCellValueFactory(
+                cellData -> cellData.getValue().partNameProperty()
+        );
+
+        columnAddPartLevel.setCellValueFactory(
+                cellData -> cellData.getValue().partInStockProperty().asObject()
+        );
+
+        columnAddPartPrice.setCellValueFactory(
+                cellData -> cellData.getValue().partPriceProperty().asObject()
+        );
+
+        columnProductPartID.setCellValueFactory(
+                cellData -> cellData.getValue().partIDProperty().asObject()
+        );
+
+        columnProductPartName.setCellValueFactory(
+                cellData -> cellData.getValue().partNameProperty()
+        );
+
+        columnProductPartLevel.setCellValueFactory(
+                cellData -> cellData.getValue().partInStockProperty().asObject()
+        );
+
+        columnProductPartPrice.setCellValueFactory(
+                cellData -> cellData.getValue().partPriceProperty().asObject()
+        );
     }
 
     public void setDialogStage(Stage dialogStage) {
@@ -94,11 +129,10 @@ public class AddProductController {
         textfieldProductMax.setText(Integer.toString(product.getMax()));
     }
 
-    @FXML
-    void handleSearchPart(ActionEvent event) {
-
+    public void initTables() {
+        parts = FXCollections.observableArrayList(product.getAssociatedParts());
+        tableviewProductPart.setItems(parts);
     }
-
     @FXML
     void handleAddPart(ActionEvent event) {
 
@@ -111,11 +145,28 @@ public class AddProductController {
 
     @FXML
     void handleProductSave(ActionEvent event) {
+        product.setProductID(Integer.parseInt(labelProductID.getText()));
+        product.setName(textfieldProductName.getText());
+        product.setInStock(Integer.parseInt(textfieldProductInv.getText()));
+        product.setPrice(Double.parseDouble(textfieldProductPrice.getText()));
+        product.setMin(Integer.parseInt(textfieldProductMin.getText()));
+        product.setMax(Integer.parseInt(textfieldProductMax.getText()));
 
+        if (!isNewProduct()) {
+            inventory.updateProduct(product);
+        } else if (isNewProduct()) {
+            inventory.addProduct(product);
+        }
+
+        dialogStage.close();
     }
 
     @FXML
     void handleProductCancel(ActionEvent event) {
+        dialogStage.close();
+    }
 
+    private boolean isNewProduct() {
+        return product.getProductID() == inventory.getProductCount();
     }
 }

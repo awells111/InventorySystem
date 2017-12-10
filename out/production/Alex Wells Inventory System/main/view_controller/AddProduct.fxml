@@ -62,8 +62,7 @@
                            </columns>
                         </TableView>
                         <Button layoutX="436.0" layoutY="254.0" mnemonicParsing="false" onAction="#handleAddPart" text="Add" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                        <Button layoutX="251.0" layoutY="-1.0" mnemonicParsing="false" onAction="#handleSearchPart" text="Search" AnchorPane.rightAnchor="185.0" AnchorPane.topAnchor="0.0" />
-                        <TextField fx:id="textfieldSearch" layoutX="307.0" layoutY="-1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <TextField fx:id="textfieldSearch" layoutX="307.0" layoutY="-1.0" promptText="Filter Parts" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
