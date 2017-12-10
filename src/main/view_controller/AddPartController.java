@@ -48,7 +48,6 @@ public class AddPartController {
 
     @FXML
     private void initialize() {
-
     }
 
     public void setDialogStage(Stage dialogStage) {

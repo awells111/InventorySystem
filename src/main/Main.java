@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.model.*;
@@ -41,10 +42,15 @@ public class Main extends Application {
         sampleParts.add(inventory.lookupPart(102));
         sampleParts.add(inventory.lookupPart(103));
 
-        inventory.addProduct(new Product(sampleParts, "AA", 1.5, 1, 5, 10));
-        inventory.addProduct(new Product(sampleParts, "AB", 1.5, 1, 5, 10));
-        inventory.addProduct(new Product(sampleParts, "AC", 1.5, 1, 5, 10));
-        inventory.addProduct(new Product(sampleParts, "AD", 1.5, 1, 5, 10));
+        inventory.addProduct(new Product("AA", 1.5, 1, 5, 10));
+        inventory.addProduct(new Product("AB", 1.5, 1, 5, 10));
+        inventory.addProduct(new Product("AC", 1.5, 1, 5, 10));
+        inventory.addProduct(new Product("AD", 1.5, 1, 5, 10));
+
+        inventory.lookupProduct(100).setAssociatedParts(sampleParts);
+        inventory.lookupProduct(101).setAssociatedParts(sampleParts);
+        inventory.lookupProduct(102).setAssociatedParts(sampleParts);
+        inventory.lookupProduct(103).setAssociatedParts(sampleParts);
     }
 
     @Override
@@ -113,12 +119,12 @@ public class Main extends Application {
         }
     }
 
-    public void showAddProduct() {
+    public void showAddProduct(Product product) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource(FXML_ADD_PRODUCT));
-            AnchorPane page = loader.load();
+            GridPane page = loader.load();
 
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
@@ -131,8 +137,10 @@ public class Main extends Application {
             // Set the person into the controller.
             AddProductController controller = loader.getController();
             controller.setDialogStage(dialogStage);
+            controller.setProduct(inventory, product);
 
-            dialogStage.show();
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
 
         } catch (IOException e) {
             e.printStackTrace();

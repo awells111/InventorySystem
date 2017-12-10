@@ -7,8 +7,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import main.model.Part;
-import main.model.Product;
+import main.model.*;
 
 public class AddProductController {
 
@@ -68,6 +67,7 @@ public class AddProductController {
     private Stage dialogStage;
     private Product product;
     private boolean saveClicked = false;
+    private Inventory inventory;
 
     @FXML
     private void initialize() {
@@ -75,6 +75,23 @@ public class AddProductController {
 
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
+    }
+
+    public void setProduct(Inventory inventory, Product product) {
+        this.inventory = inventory;
+        this.product = product;
+
+        if (product.getProductID() == -1) { //If this is a new product, use inventory.getProductCount to set its productID
+            labelProductID.setText(Integer.toString(this.inventory.getProductCount()));
+        } else { //Else use the original productID
+            labelProductID.setText(Integer.toString(product.getProductID()));
+        }
+
+        textfieldProductName.setText(product.getName());
+        textfieldProductInv.setText(Integer.toString(product.getInStock()));
+        textfieldProductPrice.setText(Double.toString(product.getPrice()));
+        textfieldProductMin.setText(Integer.toString(product.getMin()));
+        textfieldProductMax.setText(Integer.toString(product.getMax()));
     }
 
     @FXML

@@ -53,10 +53,8 @@ public class MainScreenController {
     private TableColumn<Product, Double> columnProductPrice;
 
     private Main mainApp;
-    FilteredList<Part> filteredPartData;
-    SortedList<Part> sortedPartData;
-    FilteredList<Product> filteredProductData;
-    SortedList<Product> sortedProductData;
+    private FilteredList<Part> filteredPartData;
+    private FilteredList<Product> filteredProductData;
 
     @FXML
     private void initialize() {
@@ -104,8 +102,8 @@ public class MainScreenController {
 
     @FXML
     void handleDeletePart() {
-        int selectedIndex = tableviewPart.getSelectionModel().getSelectedIndex();
-        tableviewPart.getItems().remove(selectedIndex);
+        Part selectedPart = tableviewPart.getSelectionModel().getSelectedItem();
+        mainApp.getInventory().deletePart(selectedPart);
     }
 
     @FXML
@@ -122,18 +120,20 @@ public class MainScreenController {
 
     @FXML
     void handleDeleteProduct() {
-        int selectedIndex = tableviewProduct.getSelectionModel().getSelectedIndex();
-        tableviewProduct.getItems().remove(selectedIndex);
+        Product selectedProduct = tableviewProduct.getSelectionModel().getSelectedItem();
+        mainApp.getInventory().removeProduct(selectedProduct);
     }
 
     @FXML
     void handleModifyProduct() {
-
+        Product selectedProduct = tableviewProduct.getSelectionModel().getSelectedItem();
+        mainApp.showAddProduct(selectedProduct);
     }
 
     @FXML
     void handleAddProduct() {
-        mainApp.showAddProduct();
+        Product newProduct = new Product();
+        mainApp.showAddProduct(newProduct);
     }
 
     @FXML
@@ -141,6 +141,7 @@ public class MainScreenController {
         Platform.exit();
     }
 
+    //Enables part searching
     private void initPartFilter() {
         filteredPartData = new FilteredList<>(mainApp.getInventory().getAllParts(), p -> true);
 
@@ -178,11 +179,12 @@ public class MainScreenController {
             return false;
         }));
 
-        sortedPartData = new SortedList<>(filteredPartData);
+        SortedList<Part> sortedPartData = new SortedList<>(filteredPartData);
         sortedPartData.comparatorProperty().bind(tableviewPart.comparatorProperty());
         tableviewPart.setItems(sortedPartData);
     }
 
+    //Enables product searching
     private void initProductFilter() {
         filteredProductData = new FilteredList<>(mainApp.getInventory().getProducts(), p -> true);
 
@@ -216,17 +218,17 @@ public class MainScreenController {
                         }
                     }
                 }
-                
+
                 return false;
             });
         });
 
-        sortedProductData = new SortedList<>(filteredProductData);
+        SortedList<Product> sortedProductData = new SortedList<>(filteredProductData);
         sortedProductData.comparatorProperty().bind(tableviewProduct.comparatorProperty());
         tableviewProduct.setItems(sortedProductData);
     }
 
-    public boolean isInteger(String s) {
+    private boolean isInteger(String s) {
         try {
             int num = Integer.parseInt(s);
             return true;
@@ -235,7 +237,7 @@ public class MainScreenController {
         }
     }
 
-    public boolean isDouble(String s) {
+    private boolean isDouble(String s) {
         try {
             double num = Double.parseDouble(s);
             return true;

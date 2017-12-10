@@ -14,12 +14,17 @@ public class Product {
     private final IntegerProperty min;
     private final IntegerProperty max;
 
-    public Product(ArrayList<Part> associatedParts, String name, double price, int inStock, int min, int max) {
-        this(associatedParts, -1, name, price, inStock, min, max);
+    public Product() {
+
+        this("", 0, 0, 0, 0);
     }
 
-    private Product(ArrayList<Part> associatedParts, int productID, String name, double price, int inStock, int min, int max) {
-        this.associatedParts = associatedParts;
+    public Product(String name, double price, int inStock, int min, int max) {
+        this(-1, name, price, inStock, min, max);
+    }
+
+    private Product(int productID, String name, double price, int inStock, int min, int max) {
+        associatedParts = new ArrayList<>();
         this.productID = new SimpleIntegerProperty(productID);
         this.name = new SimpleStringProperty(name);
         this.price = new SimpleDoubleProperty(price);
