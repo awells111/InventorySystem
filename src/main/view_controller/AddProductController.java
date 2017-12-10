@@ -4,14 +4,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import main.model.*;
+import main.model.Inventory;
+import main.model.Part;
+import main.model.Product;
 
 public class AddProductController {
 
@@ -132,24 +133,22 @@ public class AddProductController {
     }
 
     public void initTables() {
-        productParts = FXCollections.observableArrayList(product.getAssociatedParts());
+        productParts = FXCollections.observableList(product.getAssociatedParts());
         tableviewProductPart.setItems(productParts);
 
         initPartFilter();
     }
+
     @FXML
     void handleAddPart() {
-
+        Part selectedPart = tableviewAddPart.getSelectionModel().getSelectedItem();
+        productParts.add(selectedPart);
     }
 
     @FXML
     void handleDeletePart() {
         Part selectedPart = tableviewProductPart.getSelectionModel().getSelectedItem();
-
-        /*todo Right now we are removing the Part from two separate lists. productParts is temporarily created
-         * when the screen is opened. This is currently functional but should be fixed.*/
         productParts.remove(findPartIndex(selectedPart));
-        product.removeAssociatedPart(selectedPart);
     }
 
     @FXML

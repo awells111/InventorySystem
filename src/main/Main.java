@@ -27,14 +27,14 @@ public class Main extends Application {
 
     private void addSampleData() {
         //todo delete in final app version
-        inventory.addPart(new InhousePart("A", 1.0, 5, 1, 5, 10));
-        inventory.addPart(new OutsourcedPart("B", 1.0, 5, 1, 5, "Company"));
-        inventory.addPart(new InhousePart("C", 1.0, 5, 1, 5, 10));
-        inventory.addPart(new OutsourcedPart("D", 1.0, 5, 1, 5, "Company"));
-        inventory.addPart(new InhousePart("E", 1.0, 5, 1, 5, 10));
-        inventory.addPart(new OutsourcedPart("F", 1.0, 5, 1, 5, "Company"));
-        inventory.addPart(new InhousePart("G", 1.0, 5, 1, 5, 10));
-        inventory.addPart(new OutsourcedPart("H", 1.0, 5, 1, 5, "Company"));
+        inventory.addPart(new InhousePart("A", 3.2, 7, 1, 20, 10));
+        inventory.addPart(new OutsourcedPart("B", 1.0, 10, 1, 15, "Google"));
+        inventory.addPart(new InhousePart("C", 0.5, 12, 1, 12, 15));
+        inventory.addPart(new OutsourcedPart("D", 6.2, 3, 1, 5, "Apple"));
+        inventory.addPart(new InhousePart("E", 2.1, 4, 1, 6, 20));
+        inventory.addPart(new OutsourcedPart("F", 18.9, 3, 1, 8, "Microsoft"));
+        inventory.addPart(new InhousePart("G", 7.2, 152, 1, 300, 30));
+        inventory.addPart(new OutsourcedPart("H", 4.3, 12, 1, 17, "Oracle"));
 
         ArrayList<Part> sampleParts = new ArrayList<>();
         sampleParts.add(inventory.lookupPart(100));
@@ -42,10 +42,10 @@ public class Main extends Application {
         sampleParts.add(inventory.lookupPart(102));
         sampleParts.add(inventory.lookupPart(103));
 
-        inventory.addProduct(new Product("AA", 1.5, 1, 5, 10));
-        inventory.addProduct(new Product("AB", 1.5, 1, 5, 10));
-        inventory.addProduct(new Product("AC", 1.5, 1, 5, 10));
-        inventory.addProduct(new Product("AD", 1.5, 1, 5, 10));
+        inventory.addProduct(new Product("Desktop", 100.4, 5, 5, 10));
+        inventory.addProduct(new Product("Laptop", 200.0, 5, 5, 10));
+        inventory.addProduct(new Product("Tablet", 500.5, 6, 5, 10));
+        inventory.addProduct(new Product("Toaster", 300.99, 8, 5, 10));
 
         inventory.lookupProduct(100).setAssociatedParts(sampleParts);
         inventory.lookupProduct(101).setAssociatedParts(sampleParts);
