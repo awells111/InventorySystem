@@ -8,8 +8,9 @@ public class Inventory {
     private ObservableList<Product> products = FXCollections.observableArrayList();
     private ObservableList<Part> allParts = FXCollections.observableArrayList();
 
-    private int partCount = 1;
-    private int productCount = 1;
+    //Starting at 1 would mean that a search for a low number like 1 would return all parts/products with a 1 anywhere in the price value
+    private int partCount = 100; //Starting ID of our part
+    private int productCount = 100; //Starting ID of our product
 
     public Inventory() {
 

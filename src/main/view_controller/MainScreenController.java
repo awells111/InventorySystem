@@ -144,25 +144,39 @@ public class MainScreenController {
     private void initPartFilter() {
         filteredPartData = new FilteredList<>(mainApp.getInventory().getAllParts(), p -> true);
 
-        textfieldPart.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredPartData.setPredicate(part -> {
+        textfieldPart.textProperty().addListener((observable, oldValue, newValue) -> filteredPartData.setPredicate(part -> {
 
-                if (newValue == null || newValue.isEmpty()) {
+            if (newValue == null || newValue.isEmpty()) {
+                return true;
+            }
+
+            String lowerCaseFilter = newValue.toLowerCase();
+
+            if (part.getName().toLowerCase().contains(lowerCaseFilter)) {
+                return true;
+
+            } else if (part.getName().toLowerCase().contains(lowerCaseFilter)) {
+                return true;
+            }
+
+            if (isDouble(lowerCaseFilter) || lowerCaseFilter.equals(".")) { //If our search string is a double or if it is a "." character indicating a decimal
+                if (Double.toString(part.getPrice()).contains(lowerCaseFilter)) { //If our price value contains the searched number
                     return true;
                 }
 
-                String lowerCaseFilter = newValue.toLowerCase();
+                if (isInteger(lowerCaseFilter)) { //If our search string is an integer
+                    if (Integer.toString(part.getPartID()).contains(lowerCaseFilter)) { //If our productID value contains the searched numbers
+                        return true;
+                    }
 
-                if (String.valueOf(part.getName()).toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-
-                } else if (String.valueOf(part.getName()).toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
+                    if (Integer.toString(part.getInStock()).contains(lowerCaseFilter)) { //If our inStock value contains the searched numbers
+                        return true;
+                    }
                 }
+            }
 
-                return false;
-            });
-        });
+            return false;
+        }));
 
         sortedPartData = new SortedList<>(filteredPartData);
         sortedPartData.comparatorProperty().bind(tableviewPart.comparatorProperty());
@@ -181,13 +195,28 @@ public class MainScreenController {
 
                 String lowerCaseFilter = newValue.toLowerCase();
 
-                if (String.valueOf(product.getName()).toLowerCase().contains(lowerCaseFilter)) {
+                if (product.getName().toLowerCase().contains(lowerCaseFilter)) { //If the product name contains the search String
                     return true;
-
-                } else if (String.valueOf(product.getName()).toLowerCase().contains(lowerCaseFilter)) {
+                } else if (product.getName().toLowerCase().contains(lowerCaseFilter)) {
                     return true;
                 }
 
+                if (isDouble(lowerCaseFilter) || lowerCaseFilter.equals(".")) { //If our search string is a double or if it is a "." character indicating a decimal
+                    if (Double.toString(product.getPrice()).contains(lowerCaseFilter)) { //If our price value contains the searched number
+                        return true;
+                    }
+
+                    if (isInteger(lowerCaseFilter)) { //If our search string is an integer
+                        if (Integer.toString(product.getProductID()).contains(lowerCaseFilter)) { //If our productID value contains the searched numbers
+                            return true;
+                        }
+
+                        if (Integer.toString(product.getInStock()).contains(lowerCaseFilter)) { //If our inStock value contains the searched numbers
+                            return true;
+                        }
+                    }
+                }
+                
                 return false;
             });
         });
@@ -195,5 +224,23 @@ public class MainScreenController {
         sortedProductData = new SortedList<>(filteredProductData);
         sortedProductData.comparatorProperty().bind(tableviewProduct.comparatorProperty());
         tableviewProduct.setItems(sortedProductData);
+    }
+
+    public boolean isInteger(String s) {
+        try {
+            int num = Integer.parseInt(s);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    public boolean isDouble(String s) {
+        try {
+            double num = Double.parseDouble(s);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 }

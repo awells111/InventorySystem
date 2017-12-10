@@ -36,10 +36,10 @@ public class Main extends Application {
         inventory.addPart(new OutsourcedPart("H", 1.0, 5, 1, 5, "Company"));
 
         ArrayList<Part> sampleParts = new ArrayList<>();
-        sampleParts.add(inventory.lookupPart(1));
-        sampleParts.add(inventory.lookupPart(2));
-        sampleParts.add(inventory.lookupPart(3));
-        sampleParts.add(inventory.lookupPart(4));
+        sampleParts.add(inventory.lookupPart(100));
+        sampleParts.add(inventory.lookupPart(101));
+        sampleParts.add(inventory.lookupPart(102));
+        sampleParts.add(inventory.lookupPart(103));
 
         inventory.addProduct(new Product(sampleParts, "AA", 1.5, 1, 5, 10));
         inventory.addProduct(new Product(sampleParts, "AB", 1.5, 1, 5, 10));
