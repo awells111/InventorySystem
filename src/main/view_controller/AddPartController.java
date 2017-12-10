@@ -1,8 +1,9 @@
 package main.view_controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import main.model.InhousePart;
 import main.model.Inventory;
@@ -83,11 +84,11 @@ public class AddPartController {
 
     @FXML
     void handlePartSave() {
-        if(radioButtonInHouse.isSelected()) { //todo make sure this works
+        if (radioButtonInHouse.isSelected()) {
             part = new InhousePart();
             ((InhousePart) part).setMachineID(Integer.parseInt(textfieldPartMachineID.getText()));
         } else if (radioButtonOutSourced.isSelected()) {
-            part = new OutsourcedPart();  //todo instantiating a new part removes all of our work. we need to somehow set the old object to the new time without instantiating a new object.
+            part = new OutsourcedPart();
             ((OutsourcedPart) part).setCompanyName(textfieldPartMachineID.getText());
         }
 

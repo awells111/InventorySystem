@@ -21,7 +21,6 @@ import static main.view_controller.MainScreenController.FXML_MAIN_SCREEN;
 public class Main extends Application {
 
     private Stage primaryStage;
-    private AnchorPane rootLayout;
 
     private Inventory inventory = new Inventory();
 
@@ -50,25 +49,20 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
-        //todo use getters
         this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("Inventory System");
-//        Parent root = FXMLLoader.load(getClass().getResource(FXML_MAIN_SCREEN));
-//        this.primaryStage.setScene(new Scene(root, 800, 600));
-//        this.primaryStage.show();
+        getPrimaryStage().setTitle("Inventory System");
 
         initRootLayout();
 
         addSampleData();
     }
 
-    public void initRootLayout() {
+    private void initRootLayout() {
         try {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource(FXML_MAIN_SCREEN));
-            rootLayout = loader.load();
+            AnchorPane rootLayout = loader.load();
 
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
@@ -86,7 +80,7 @@ public class Main extends Application {
         launch(args);
     }
 
-    public Stage getPrimaryStage() {
+    private Stage getPrimaryStage() {
         return primaryStage;
     }
 

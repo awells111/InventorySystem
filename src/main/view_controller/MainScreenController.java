@@ -1,7 +1,8 @@
 package main.view_controller;
 
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -14,8 +15,6 @@ import main.model.Product;
 public class MainScreenController {
 
     public static final String FXML_MAIN_SCREEN = "view_controller/MainScreen.fxml";
-
-    private Main mainApp;
 
     @FXML
     private TextField textfieldPart;
@@ -52,6 +51,12 @@ public class MainScreenController {
 
     @FXML
     private TableColumn<Product, Double> columnProductPrice;
+
+    private Main mainApp;
+    FilteredList<Part> filteredPartData;
+    SortedList<Part> sortedPartData;
+    FilteredList<Product> filteredProductData;
+    SortedList<Product> sortedProductData;
 
     @FXML
     private void initialize() {
@@ -93,57 +98,102 @@ public class MainScreenController {
     public void setMainApp(Main mainApp) {
         this.mainApp = mainApp;
 
-        tableviewPart.setItems(mainApp.getInventory().getAllParts());
-        tableviewProduct.setItems(mainApp.getInventory().getProducts());
+        initPartFilter();
+        initProductFilter();
     }
 
     @FXML
-    void handleSearchPart(ActionEvent event) {
-
-    }
-
-    @FXML
-    void handleDeletePart(ActionEvent event) {
+    void handleDeletePart() {
         int selectedIndex = tableviewPart.getSelectionModel().getSelectedIndex();
         tableviewPart.getItems().remove(selectedIndex);
     }
 
     @FXML
-    void handleModifyPart(ActionEvent event) {
+    void handleModifyPart() {
         Part selectedPart = tableviewPart.getSelectionModel().getSelectedItem();
         mainApp.showAddPart(selectedPart);
     }
 
     @FXML
-    void handleAddPart(ActionEvent event) {
+    void handleAddPart() {
         Part newPart = new InhousePart();
         mainApp.showAddPart(newPart);
     }
 
     @FXML
-    void handleSearchProduct(ActionEvent event) {
-
-    }
-
-    @FXML
-    void handleDeleteProduct(ActionEvent event) {
+    void handleDeleteProduct() {
         int selectedIndex = tableviewProduct.getSelectionModel().getSelectedIndex();
         tableviewProduct.getItems().remove(selectedIndex);
     }
 
     @FXML
-    void handleModifyProduct(ActionEvent event) {
+    void handleModifyProduct() {
 
     }
 
     @FXML
-    void handleAddProduct(ActionEvent event) {
+    void handleAddProduct() {
         mainApp.showAddProduct();
     }
 
     @FXML
-    void handleExit(ActionEvent event) {
+    void handleExit() {
         Platform.exit();
     }
 
+    private void initPartFilter() {
+        filteredPartData = new FilteredList<>(mainApp.getInventory().getAllParts(), p -> true);
+
+        textfieldPart.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredPartData.setPredicate(part -> {
+
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (String.valueOf(part.getName()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+
+                } else if (String.valueOf(part.getName()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                }
+
+                return false;
+            });
+        });
+
+        sortedPartData = new SortedList<>(filteredPartData);
+        sortedPartData.comparatorProperty().bind(tableviewPart.comparatorProperty());
+        tableviewPart.setItems(sortedPartData);
+    }
+
+    private void initProductFilter() {
+        filteredProductData = new FilteredList<>(mainApp.getInventory().getProducts(), p -> true);
+
+        textfieldProduct.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredProductData.setPredicate(product -> {
+
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (String.valueOf(product.getName()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+
+                } else if (String.valueOf(product.getName()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                }
+
+                return false;
+            });
+        });
+
+        sortedProductData = new SortedList<>(filteredProductData);
+        sortedProductData.comparatorProperty().bind(tableviewProduct.comparatorProperty());
+        tableviewProduct.setItems(sortedProductData);
+    }
 }
