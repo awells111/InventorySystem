@@ -2,6 +2,8 @@ package main.view_controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -10,8 +12,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import main.model.*;
-
-import java.util.Observable;
 
 public class AddProductController {
 
@@ -71,7 +71,9 @@ public class AddProductController {
     private Stage dialogStage;
     private Product product;
     private Inventory inventory;
-    ObservableList<Part> parts;
+
+    private FilteredList<Part> filteredPartData;
+    private ObservableList<Part> productParts;
 
     @FXML
     private void initialize() {
@@ -130,21 +132,28 @@ public class AddProductController {
     }
 
     public void initTables() {
-        parts = FXCollections.observableArrayList(product.getAssociatedParts());
-        tableviewProductPart.setItems(parts);
+        productParts = FXCollections.observableArrayList(product.getAssociatedParts());
+        tableviewProductPart.setItems(productParts);
+
+        initPartFilter();
     }
     @FXML
-    void handleAddPart(ActionEvent event) {
-
-    }
-
-    @FXML
-    void handleDeletePart(ActionEvent event) {
+    void handleAddPart() {
 
     }
 
     @FXML
-    void handleProductSave(ActionEvent event) {
+    void handleDeletePart() {
+        Part selectedPart = tableviewProductPart.getSelectionModel().getSelectedItem();
+
+        /*todo Right now we are removing the Part from two separate lists. productParts is temporarily created
+         * when the screen is opened. This is currently functional but should be fixed.*/
+        productParts.remove(findPartIndex(selectedPart));
+        product.removeAssociatedPart(selectedPart);
+    }
+
+    @FXML
+    void handleProductSave() {
         product.setProductID(Integer.parseInt(labelProductID.getText()));
         product.setName(textfieldProductName.getText());
         product.setInStock(Integer.parseInt(textfieldProductInv.getText()));
@@ -162,11 +171,83 @@ public class AddProductController {
     }
 
     @FXML
-    void handleProductCancel(ActionEvent event) {
+    void handleProductCancel() {
         dialogStage.close();
     }
 
     private boolean isNewProduct() {
         return product.getProductID() == inventory.getProductCount();
+    }
+
+    //Enables part searching
+    private void initPartFilter() {
+        filteredPartData = new FilteredList<>(inventory.getAllParts(), p -> true);
+
+        textfieldSearch.textProperty().addListener((observable, oldValue, newValue) -> filteredPartData.setPredicate(part -> {
+
+            if (newValue == null || newValue.isEmpty()) {
+                return true;
+            }
+
+            String lowerCaseFilter = newValue.toLowerCase();
+
+            if (part.getName().toLowerCase().contains(lowerCaseFilter)) {
+                return true;
+
+            } else if (part.getName().toLowerCase().contains(lowerCaseFilter)) {
+                return true;
+            }
+
+            if (isDouble(lowerCaseFilter) || lowerCaseFilter.equals(".")) { //If our search string is a double or if it is a "." character indicating a decimal
+                if (Double.toString(part.getPrice()).contains(lowerCaseFilter)) { //If our price value contains the searched number
+                    return true;
+                }
+
+                if (isInteger(lowerCaseFilter)) { //If our search string is an integer
+                    if (Integer.toString(part.getPartID()).contains(lowerCaseFilter)) { //If our productID value contains the searched numbers
+                        return true;
+                    }
+
+                    if (Integer.toString(part.getInStock()).contains(lowerCaseFilter)) { //If our inStock value contains the searched numbers
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }));
+
+        SortedList<Part> sortedPartData = new SortedList<>(filteredPartData);
+        sortedPartData.comparatorProperty().bind(tableviewAddPart.comparatorProperty());
+        tableviewAddPart.setItems(sortedPartData);
+    }
+
+    private boolean isInteger(String s) {
+        try {
+            int num = Integer.parseInt(s);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    private boolean isDouble(String s) {
+        try {
+            double num = Double.parseDouble(s);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    private int findPartIndex(Part part) {
+        //Returns the index of a part in associatedParts.
+        for (int i = 0; i < productParts.size(); i++) {
+            if (productParts.get(i).getPartID() == part.getPartID()) {
+                return i;
+            }
+        }
+
+        return -1;
     }
 }

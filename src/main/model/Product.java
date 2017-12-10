@@ -15,7 +15,6 @@ public class Product {
     private final IntegerProperty max;
 
     public Product() {
-
         this("", 0, 0, 0, 0);
     }
 
