@@ -1,15 +1,14 @@
 package main.view_controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import main.model.InhousePart;
 import main.model.Inventory;
 import main.model.OutsourcedPart;
 import main.model.Part;
+
+import java.util.Optional;
 
 import static main.util.NumberUtil.isDouble;
 import static main.util.NumberUtil.isInteger;
@@ -115,6 +114,10 @@ public class AddPartController {
 
     @FXML
     void handlePartCancel() {
+        if(errorBeforeCancel()) {
+            return;
+        }
+
         dialogStage.close();
     }
 
@@ -190,6 +193,20 @@ public class AddPartController {
         if (inv < min || inv > max) {
             alert.setContentText("Inv must be an integer between Min and Max");
             alert.showAndWait();
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean errorBeforeCancel() {
+        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationAlert.setTitle("Confirmation Dialog");
+        confirmationAlert.setHeaderText(null);
+        confirmationAlert.setContentText("Are you sure you want to cancel?");
+
+        Optional<ButtonType> result = confirmationAlert.showAndWait();
+        if (result.get() != ButtonType.OK){ //If our user presses cancel
             return true;
         }
 

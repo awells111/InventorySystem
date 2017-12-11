@@ -4,13 +4,13 @@ import javafx.application.Platform;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import main.Main;
 import main.model.InhousePart;
 import main.model.Part;
 import main.model.Product;
+
+import java.util.Optional;
 
 import static main.util.NumberUtil.isDouble;
 import static main.util.NumberUtil.isInteger;
@@ -123,6 +123,10 @@ public class MainScreenController {
 
     @FXML
     void handleDeleteProduct() {
+        if(errorBeforeDelete()) {
+            return;
+        }
+
         Product selectedProduct = tableviewProduct.getSelectionModel().getSelectedItem();
         mainApp.getInventory().removeProduct(selectedProduct);
     }
@@ -141,6 +145,9 @@ public class MainScreenController {
 
     @FXML
     void handleExit() {
+        if (errorBeforeExit()) {
+            return;
+        }
         Platform.exit();
     }
 
@@ -229,5 +236,33 @@ public class MainScreenController {
         SortedList<Product> sortedProductData = new SortedList<>(filteredProductData);
         sortedProductData.comparatorProperty().bind(tableviewProduct.comparatorProperty());
         tableviewProduct.setItems(sortedProductData);
+    }
+
+    private boolean errorBeforeDelete() {
+        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationAlert.setTitle("Confirmation Dialog");
+        confirmationAlert.setHeaderText(null);
+        confirmationAlert.setContentText("Are you sure you want to delete?");
+
+        Optional<ButtonType> result = confirmationAlert.showAndWait();
+        if (result.get() != ButtonType.OK){ //If our user presses cancel
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean errorBeforeExit() {
+        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationAlert.setTitle("Confirmation Dialog");
+        confirmationAlert.setHeaderText(null);
+        confirmationAlert.setContentText("Are you sure you want to exit?");
+
+        Optional<ButtonType> result = confirmationAlert.showAndWait();
+        if (result.get() != ButtonType.OK){ //If our user presses cancel
+            return true;
+        }
+
+        return false;
     }
 }

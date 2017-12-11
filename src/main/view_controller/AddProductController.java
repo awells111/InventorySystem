@@ -11,6 +11,8 @@ import main.model.Inventory;
 import main.model.Part;
 import main.model.Product;
 
+import java.util.Optional;
+
 import static main.util.NumberUtil.isDouble;
 import static main.util.NumberUtil.isInteger;
 
@@ -147,6 +149,10 @@ public class AddProductController {
 
     @FXML
     void handleDeletePart() {
+        if (errorBeforeDelete()) {
+            return;
+        }
+
         Part selectedPart = tableviewProductPart.getSelectionModel().getSelectedItem();
         productParts.remove(findPartIndex(selectedPart));
     }
@@ -175,6 +181,10 @@ public class AddProductController {
 
     @FXML
     void handleProductCancel() {
+        if (errorBeforeCancel()) {
+            return;
+        }
+
         dialogStage.close();
     }
 
@@ -288,9 +298,78 @@ public class AddProductController {
             return true;
         }
 
+
+        /*TODO
+         * Due to project specifications, the requirements below must be met:
+         *
+         * 1. "ensuring that a product must always have at least one part"
+         * 2. "preventing the user from deleting a product that has a part assigned to it"
+         *
+         * Because of these, the user will not be able to delete a product because the user will never be able to save a
+         * product without any parts, but the user will not be able to delete a product because it must always have a part.
+         * */
         if (product.getAssociatedParts().size() == 0) { // If product has no parts
             alert.setContentText("A product must have at least one part");
             alert.showAndWait();
+            return true;
+        }
+
+        double productPriceTotal = 0.0;
+        for (Part part : product.getAssociatedParts()) { //Add the total price of parts in a product
+            productPriceTotal += part.getPrice();
+        }
+
+        if (productPriceTotal > product.getPrice()) { //If the total price of parts is more than the product itself
+            alert.setContentText("The price of a product cannot be less than the cost of parts");
+            alert.showAndWait();
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean errorBeforeDelete() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Error Deleting Part");
+        alert.setHeaderText(null);
+
+        /*TODO
+         * Due to project specifications, the requirements below must be met:
+         *
+         * 1. "ensuring that a product must always have at least one part"
+         * 2. "preventing the user from deleting a product that has a part assigned to it"
+         *
+         * Because of these, the user will not be able to delete a product because the user will never be able to save a
+         * product without any parts, but the user will not be able to delete a product because it must always have a part.
+         * */
+        if (product.getAssociatedParts().size() > 0) {
+            alert.setContentText("A product cannot be deleted before removing all of its parts");
+            alert.showAndWait();
+            return true;
+        }
+
+
+        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationAlert.setTitle("Confirmation Dialog");
+        confirmationAlert.setHeaderText(null);
+        confirmationAlert.setContentText("Are you sure you want to delete?");
+
+        Optional<ButtonType> result = confirmationAlert.showAndWait();
+        if (result.get() != ButtonType.OK){ //If our user presses cancel
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean errorBeforeCancel() {
+        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationAlert.setTitle("Confirmation Dialog");
+        confirmationAlert.setHeaderText(null);
+        confirmationAlert.setContentText("Are you sure you want to cancel?");
+
+        Optional<ButtonType> result = confirmationAlert.showAndWait();
+        if (result.get() != ButtonType.OK){ //If our user presses cancel
             return true;
         }
 
