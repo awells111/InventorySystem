@@ -5,14 +5,14 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import main.model.Inventory;
 import main.model.Part;
 import main.model.Product;
+
+import static main.util.NumberUtil.isDouble;
+import static main.util.NumberUtil.isInteger;
 
 public class AddProductController {
 
@@ -153,6 +153,10 @@ public class AddProductController {
 
     @FXML
     void handleProductSave() {
+        if (errorBeforeSave()) {
+            return;
+        }
+
         product.setProductID(Integer.parseInt(labelProductID.getText()));
         product.setName(textfieldProductName.getText());
         product.setInStock(Integer.parseInt(textfieldProductInv.getText()));
@@ -221,24 +225,6 @@ public class AddProductController {
         tableviewAddPart.setItems(sortedPartData);
     }
 
-    private boolean isInteger(String s) {
-        try {
-            int num = Integer.parseInt(s);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
-    private boolean isDouble(String s) {
-        try {
-            double num = Double.parseDouble(s);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
     private int findPartIndex(Part part) {
         //Returns the index of a part in associatedParts.
         for (int i = 0; i < productParts.size(); i++) {
@@ -248,5 +234,66 @@ public class AddProductController {
         }
 
         return -1;
+    }
+
+    private boolean errorBeforeSave() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Error Saving Part");
+        alert.setHeaderText(null);
+
+        //Display alert for incorrect inputs
+        if (textfieldProductPrice.getText().equals("")) {
+            alert.setContentText("Name cannot be empty");
+            alert.showAndWait();
+            return true;
+        }
+
+        if (!isInteger(textfieldProductInv.getText())) {
+            alert.setContentText("Inv must be an integer");
+            alert.showAndWait();
+            return true;
+        }
+
+        if (!isDouble(textfieldProductPrice.getText())) {
+            alert.setContentText("Price/Cost must be a number");
+            alert.showAndWait();
+            return true;
+        }
+
+        if (!isInteger(textfieldProductMin.getText())) {
+            alert.setContentText("Min must be an integer");
+            alert.showAndWait();
+            return true;
+        }
+
+        if (!isInteger(textfieldProductMax.getText())) {
+            alert.setContentText("Max must be an integer");
+            alert.showAndWait();
+            return true;
+        }
+
+        int inv = Integer.parseInt(textfieldProductInv.getText());
+        int min = Integer.parseInt(textfieldProductMin.getText());
+        int max = Integer.parseInt(textfieldProductMax.getText());
+
+        if (min > max || max < min) { //max < min is redundant but I am including it to meet project specifications
+            alert.setContentText("Min cannot be higher than Max");
+            alert.showAndWait();
+            return true;
+        }
+
+        if (inv < min || inv > max) {
+            alert.setContentText("Inv must be an integer between Min and Max");
+            alert.showAndWait();
+            return true;
+        }
+
+        if (product.getAssociatedParts().size() == 0) { // If product has no parts
+            alert.setContentText("A product must have at least one part");
+            alert.showAndWait();
+            return true;
+        }
+
+        return false;
     }
 }

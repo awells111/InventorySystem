@@ -12,6 +12,9 @@ import main.model.InhousePart;
 import main.model.Part;
 import main.model.Product;
 
+import static main.util.NumberUtil.isDouble;
+import static main.util.NumberUtil.isInteger;
+
 public class MainScreenController {
 
     public static final String FXML_MAIN_SCREEN = "view_controller/MainScreen.fxml";
@@ -226,23 +229,5 @@ public class MainScreenController {
         SortedList<Product> sortedProductData = new SortedList<>(filteredProductData);
         sortedProductData.comparatorProperty().bind(tableviewProduct.comparatorProperty());
         tableviewProduct.setItems(sortedProductData);
-    }
-
-    private boolean isInteger(String s) {
-        try {
-            int num = Integer.parseInt(s);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
-    private boolean isDouble(String s) {
-        try {
-            double num = Double.parseDouble(s);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
     }
 }

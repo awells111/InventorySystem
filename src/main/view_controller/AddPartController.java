@@ -1,6 +1,7 @@
 package main.view_controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -9,6 +10,9 @@ import main.model.InhousePart;
 import main.model.Inventory;
 import main.model.OutsourcedPart;
 import main.model.Part;
+
+import static main.util.NumberUtil.isDouble;
+import static main.util.NumberUtil.isInteger;
 
 public class AddPartController {
 
@@ -82,6 +86,9 @@ public class AddPartController {
 
     @FXML
     void handlePartSave() {
+        if(errorBeforeSave()) {
+            return;
+        }
         if (radioButtonInHouse.isSelected()) {
             part = new InhousePart();
             ((InhousePart) part).setMachineID(Integer.parseInt(textfieldPartMachineID.getText()));
@@ -121,5 +128,71 @@ public class AddPartController {
 
     private boolean isNewPart() {
         return part.getPartID() == inventory.getPartCount();
+    }
+
+    private boolean errorBeforeSave() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Error Saving Part");
+        alert.setHeaderText(null);
+
+        //Display alert for incorrect inputs
+        if (textfieldPartName.getText().equals("")) {
+            alert.setContentText("Name cannot be empty");
+            alert.showAndWait();
+            return true;
+        }
+
+        if (!isInteger(textfieldPartInv.getText())) {
+            alert.setContentText("Inv must be an integer");
+            alert.showAndWait();
+            return true;
+        }
+
+        if (!isDouble(textfieldPartPrice.getText())) {
+            alert.setContentText("Price/Cost must be a number");
+            alert.showAndWait();
+            return true;
+        }
+
+        if (!isInteger(textfieldPartMin.getText())) {
+            alert.setContentText("Min must be an integer");
+            alert.showAndWait();
+            return true;
+        }
+
+        if (!isInteger(textfieldPartMax.getText())) {
+            alert.setContentText("Max must be an integer");
+            alert.showAndWait();
+            return true;
+        }
+
+        if (radioButtonInHouse.isSelected() && !isInteger(textfieldPartMachineID.getText())) {
+            alert.setContentText("Machine ID must be an integer");
+            alert.showAndWait();
+            return true;
+        } else if (radioButtonOutSourced.isSelected() && textfieldPartMachineID.getText().equals("")) {
+            alert.setContentText("Company Name cannot be empty");
+            alert.showAndWait();
+            return true;
+        }
+
+
+        int inv = Integer.parseInt(textfieldPartInv.getText());
+        int min = Integer.parseInt(textfieldPartMin.getText());
+        int max = Integer.parseInt(textfieldPartMax.getText());
+
+        if (min > max || max < min) { //max < min is redundant but I am including it to meet project specifications
+            alert.setContentText("Min cannot be higher than Max");
+            alert.showAndWait();
+            return true;
+        }
+
+        if (inv < min || inv > max) {
+            alert.setContentText("Inv must be an integer between Min and Max");
+            alert.showAndWait();
+            return true;
+        }
+
+        return false;
     }
 }
