@@ -27,6 +27,9 @@ public class AddPartController {
     private Label labelPartID;
 
     @FXML
+    private Label labelMachineID;
+
+    @FXML
     private TextField textfieldPartName;
 
     @FXML
@@ -81,6 +84,13 @@ public class AddPartController {
         } else {
             textfieldPartMachineID.setText("");
         }
+
+        setLabelMachineID();
+    }
+
+    @FXML
+    void handleButtonChange() {
+        setLabelMachineID();
     }
 
     @FXML
@@ -211,5 +221,13 @@ public class AddPartController {
         }
 
         return false;
+    }
+
+    private void setLabelMachineID() {
+        if (radioButtonInHouse.isSelected()) {
+            labelMachineID.setText("Machine ID");
+        } else if (radioButtonOutSourced.isSelected()) {
+            labelMachineID.setText("Company Name");
+        }
     }
 }
