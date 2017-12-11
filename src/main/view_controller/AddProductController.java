@@ -319,7 +319,7 @@ public class AddProductController {
             productPriceTotal += part.getPrice();
         }
 
-        if (productPriceTotal > product.getPrice()) { //If the total price of parts is more than the product itself
+        if (productPriceTotal > Double.parseDouble(textfieldProductPrice.getText())) { //If the total price of parts is more than the product itself
             alert.setContentText("The price of a product cannot be less than the cost of parts");
             alert.showAndWait();
             return true;
